@@ -28,6 +28,10 @@
 # Visual Studio / Rider / VS Code cache files
 .vs/
 .idea/
+
+# Downloaded font/asset packs at repo root (copy only needed files into Assets/_Project/)
+/Pretendard-*/
+/NanumGothic-*/
 .vscode/
 *.csproj
 *.unityproj
