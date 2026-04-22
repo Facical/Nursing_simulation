@@ -1,0 +1,39 @@
+# Unity YAML merge (requires Asset Serialization Mode = "Force Text" in Unity)
+*.unity merge=unity3d -text
+*.prefab merge=unity3d -text
+*.asset merge=unity3d -text
+*.mat merge=unity3d -text
+*.anim merge=unity3d -text
+*.controller merge=unity3d -text
+*.physicMaterial merge=unity3d -text
+*.physicsMaterial2D merge=unity3d -text
+*.meta merge=unity3d -text
+
+# Git LFS for large binaries
+# 3D models
+*.fbx filter=lfs diff=lfs merge=lfs -text
+*.FBX filter=lfs diff=lfs merge=lfs -text
+*.obj filter=lfs diff=lfs merge=lfs -text
+*.blend filter=lfs diff=lfs merge=lfs -text
+
+# Image source files
+*.psd filter=lfs diff=lfs merge=lfs -text
+*.tga filter=lfs diff=lfs merge=lfs -text
+*.exr filter=lfs diff=lfs merge=lfs -text
+*.hdr filter=lfs diff=lfs merge=lfs -text
+*.tif filter=lfs diff=lfs merge=lfs -text
+*.tiff filter=lfs diff=lfs merge=lfs -text
+
+# Audio
+*.wav filter=lfs diff=lfs merge=lfs -text
+*.mp3 filter=lfs diff=lfs merge=lfs -text
+*.ogg filter=lfs diff=lfs merge=lfs -text
+*.aif filter=lfs diff=lfs merge=lfs -text
+*.aiff filter=lfs diff=lfs merge=lfs -text
+
+# Video
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.mov filter=lfs diff=lfs merge=lfs -text
+
+# Unity asset bundles
+*.unitypackage filter=lfs diff=lfs merge=lfs -text
