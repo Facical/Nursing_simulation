@@ -7,6 +7,7 @@
 | 자산명 | 제공처 | 라이선스 | 상용 가능 | 재배포 조건 | 다운로드일 | 증빙 |
 |---|---|---|:---:|---|---|---|
 | Microsoft Rocketbox (avatars) | [github.com/microsoft/Microsoft-Rocketbox](https://github.com/microsoft/Microsoft-Rocketbox) | **MIT** | ✓ | 저작권 고지 유지 | 2026-04-22 | commit `0943055db6ec570bcef9f2c8b41c9e5467c808f9` (2022-10-02) |
+| Pretendard (Regular + Bold) | [github.com/orioncactus/pretendard](https://github.com/orioncactus/pretendard) | **SIL OFL 1.1** | ✓ | 저작권 고지 유지 + 폰트 자체 상품화 금지 | 2026-04-22 | v1.3.9 배포본. `Pretendard-LICENSE.txt` 동봉 |
 
 ## 프로젝트에 복사된 아바타 (부분 임포트)
 
