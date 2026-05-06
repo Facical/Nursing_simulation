@@ -68,36 +68,53 @@ public class StepResult {
 
 ## 4. 감점 사유 (Enum)
 
+> 본 enum은 [docs/02-functional-spec.md](./02-functional-spec.md) 절차와 KABONE 제4.1판 #3(근육주사)에 정렬되어 있다. KABONE에 명시되지 않은 임상 best-practice 감점(Z-track 미사용, 둔부 배면 회피, 부피별 부위 거부, 마사지 회피, 5분 관찰 누락 등)은 포함하지 않는다.
+
 ```csharp
 public enum DeductionReason {
+    // 손위생 (KABONE 1, 6, 11, 20)
     HandHygieneSkipped,
     HandHygieneTooShort,
-    WrongBottleAlcoholSkipped,
-    DoseOutOfTolerance,
-    DistractorItemSelected,
+
+    // 물품·약물 준비 (KABONE 3, 4)
     RequiredItemMissing,
+    DistractorItemSelected,
+    DoseOutOfTolerance,
+    AsepticBreach,                   // 무균술 파손 (KABONE 3/13)
+
+    // 환자 식별 (KABONE 7)
     ClosedQuestionOnly,
     OneIdentifierOnly,
+    RegistrationNumberNotChecked,    // 이름은 확인했으나 등록번호 미대조
+
+    // 사생활 (KABONE 9)
     PrivacyNotSecured,
-    SiteVolumeExceeded,
-    SiteUsesDorsogluteal,        // 권장 안 함 정책 감점
+
+    // 부위·소독 (KABONE 10, 12)
     LandmarkOrderWrong,
-    AsepticBreach,
-    DisinfectionPathWrong,
-    DisinfectionDryTimeShort,
-    AngleOutOfRange,
+    DisinfectionPathWrong,           // 외→내 역방향
+    DisinfectionDryTimeShort,        // 마름 대기 누락
+
+    // 주사 시퀀스 (KABONE 13, 14)
+    AngleOutOfRange,                 // 90° ±10° 이탈
+    AspirationSkipped,               // 흡인 미수행
+    BloodSeenButContinued,           // 혈액 보임에도 처음부터 다시 분기 미수행
     InjectionTooFast,
     InjectionTooSlow,
-    WithdrawalAngleDiff,
-    SiteRubbedAfter,
-    NeedleRecapped,
-    SharpsBinMissed,
-    RecordFieldMissing,
-    PostObservationSkipped,
+
+    // 발침 (KABONE 15)
+    WithdrawalAngleDiff,             // 삽입 각도와 다른 각도로 발침
+
+    // 폐기·기록 (KABONE 19, 21)
+    NeedleRecapped,                  // 바늘 캡 재씌움
+    SharpsBinMissed,                 // 손상성폐기물 전용용기 미사용
+    RecordFieldMissing               // 5 rights 등 기록 누락
 }
 ```
 
 문자열 현지화는 `Localization/Deductions_ko.csv`에서 매핑.
+
+**중요**: enum 값은 `NursingSimulation/Assets/_Project/Scripts/Data/DeductionReason.cs`와 동기화되어야 한다. 변경 시 두 파일을 함께 수정.
 
 ## 5. 예시 JSON 표현 (내보내기 용도)
 

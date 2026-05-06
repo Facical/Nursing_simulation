@@ -32,6 +32,7 @@
 # Downloaded font/asset packs at repo root (copy only needed files into Assets/_Project/)
 /Pretendard-*/
 /NanumGothic-*/
+/Microsoft-Rocketbox/
 .vscode/
 *.csproj
 *.unityproj

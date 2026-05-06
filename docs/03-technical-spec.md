@@ -124,7 +124,8 @@ Assets/
 
 - Edit Mode 테스트: `ScenarioRunner` 상태 전이, 채점 로직, SaveService 직렬화 — NUnit.
 - Play Mode 테스트: 핵심 인터랙션 스모크(클릭 → 하이라이트 → 선택 이벤트 발행).
-- 손 검증: 각 Phase 끝에 "IM 시나리오 한 번 완주" 체크리스트. 감수자 리뷰는 별도.
+- 손 검증: 각 Phase 끝에 "IM 시나리오 한 번 완주" 체크리스트.
+- KABONE 출처 대조: Phase 4에서 [docs/02 §6](./02-functional-spec.md) 자체 점검 9개 항목 통과 확인.
 
 ## 7. 빌드 타깃
 
