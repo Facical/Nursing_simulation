@@ -1,0 +1,21 @@
+{
+    "name": "NursingSim.Editor",
+    "rootNamespace": "NursingSim.EditorTools",
+    "references": [
+        "NursingSim.Runtime",
+        "Unity.TextMeshPro",
+        "Unity.InputSystem",
+        "UnityEngine.UI"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
