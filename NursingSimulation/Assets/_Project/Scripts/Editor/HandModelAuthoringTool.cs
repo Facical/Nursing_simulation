@@ -17,21 +17,26 @@ namespace NursingSim.EditorTools
         private const string RightHandPrefabPath = "Assets/_Project/Prefabs/Characters/PlayerHand_Right.prefab";
         private const string LeftHandPrefabPath = "Assets/_Project/Prefabs/Characters/PlayerHand_Left.prefab";
         private const string GeneratedMeshFolder = "Assets/_Project/Art/Models/Hands/Generated";
+        private const string PlaceholderMaterialPath = "Assets/_Project/Art/Materials/PlaceholderHand.mat";
 
         [MenuItem("Tools/Nursing Sim/Phase 3/0. Build Player Hand Prefabs")]
         public static void BuildPlayerHandPrefabs()
         {
-            ArmTutorialMaterialFixTool.FixArmTutorialMaterials();
             ClinicalHandAnimationAuthoringTool.BuildClinicalHandAnimationAssets();
             AssetDatabase.ImportAsset(SourceModelPath, ImportAssetOptions.ForceUpdate);
 
             var model = AssetDatabase.LoadAssetAtPath<GameObject>(SourceModelPath);
             if (model == null)
             {
-                EditorUtility.DisplayDialog("Build Player Hand", $"손 모델을 찾을 수 없습니다.\n{SourceModelPath}", "확인");
+                Debug.LogWarning($"[HandModelAuthoring] Source hand model not found: {SourceModelPath}. Creating public-safe placeholder hand prefabs.");
+                BuildPlaceholderHandPrefab(RightHandPrefabPath, "PlayerHand_Right", HandSide.Right);
+                BuildPlaceholderHandPrefab(LeftHandPrefabPath, "PlayerHand_Left", HandSide.Left);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
                 return;
             }
 
+            ArmTutorialMaterialFixTool.FixArmTutorialMaterials();
             EnsureGeneratedMeshFolder();
             BuildHandPrefab(model, RightHandPrefabPath, "PlayerHand_Right", HandSide.Right);
             BuildHandPrefab(model, LeftHandPrefabPath, "PlayerHand_Left", HandSide.Left);
@@ -71,6 +76,91 @@ namespace NursingSim.EditorTools
             Selection.activeObject = saved;
             EditorGUIUtility.PingObject(saved);
             Debug.Log($"[HandModelAuthoring] Created {prefabPath}");
+        }
+
+        private static void BuildPlaceholderHandPrefab(string prefabPath, string instanceName, HandSide handSide)
+        {
+            var prefabDir = Path.GetDirectoryName(prefabPath);
+            if (!AssetDatabase.IsValidFolder(prefabDir))
+            {
+                Directory.CreateDirectory(prefabDir);
+                AssetDatabase.Refresh();
+            }
+
+            var instance = new GameObject(instanceName);
+            var material = EnsurePlaceholderHandMaterial();
+            BuildPlaceholderRig(instance.transform, handSide, material);
+
+            EnsureRuntimeComponents(instance, handSide);
+            EnsureRigAndAnchors(instance, handSide);
+            AssignAnimatorController(instance);
+            AssignPalm(instance);
+
+            var saved = PrefabUtility.SaveAsPrefabAsset(instance, prefabPath);
+            Object.DestroyImmediate(instance);
+
+            Selection.activeObject = saved;
+            EditorGUIUtility.PingObject(saved);
+            Debug.Log($"[HandModelAuthoring] Created placeholder {prefabPath}");
+        }
+
+        private static void BuildPlaceholderRig(Transform root, HandSide handSide, Material material)
+        {
+            var sideName = handSide == HandSide.Right ? "Right" : "Left";
+            float sign = handSide == HandSide.Right ? 1f : -1f;
+            var prefix = $"mixamorig:{sideName}";
+
+            var visualRoot = new GameObject("ArmVisual").transform;
+            visualRoot.SetParent(root, false);
+
+            var shoulder = CreateBone(visualRoot, $"{prefix}Shoulder", Vector3.zero);
+            var upperArm = CreateBone(shoulder, $"{prefix}Arm", new Vector3(sign * 0.08f, -0.04f, 0.08f));
+            var foreArm = CreateBone(upperArm, $"{prefix}ForeArm", new Vector3(sign * 0.18f, -0.03f, 0.18f));
+            var hand = CreateBone(foreArm, $"{prefix}Hand", new Vector3(sign * 0.16f, -0.02f, 0.18f));
+
+            CreateVisualBox(upperArm, "UpperArm_Proxy", new Vector3(sign * 0.08f, 0f, 0.08f), new Vector3(0.055f, 0.055f, 0.18f), material);
+            CreateVisualBox(foreArm, "ForeArm_Proxy", new Vector3(sign * 0.08f, 0f, 0.09f), new Vector3(0.05f, 0.05f, 0.2f), material);
+            CreateVisualBox(hand, "Palm_Proxy", new Vector3(0f, 0f, 0.04f), new Vector3(0.09f, 0.035f, 0.09f), material);
+
+            CreateFinger(hand, prefix, "Thumb", new Vector3(-sign * 0.045f, -0.004f, 0.035f), new Vector3(-sign * 0.026f, 0f, 0.025f), material);
+            CreateFinger(hand, prefix, "Index", new Vector3(sign * 0.03f, 0f, 0.085f), new Vector3(0f, 0f, 0.034f), material);
+            CreateFinger(hand, prefix, "Middle", new Vector3(sign * 0.01f, 0f, 0.09f), new Vector3(0f, 0f, 0.038f), material);
+            CreateFinger(hand, prefix, "Ring", new Vector3(-sign * 0.01f, 0f, 0.086f), new Vector3(0f, 0f, 0.034f), material);
+            CreateFinger(hand, prefix, "Pinky", new Vector3(-sign * 0.03f, 0f, 0.078f), new Vector3(0f, 0f, 0.029f), material);
+        }
+
+        private static Transform CreateBone(Transform parent, string boneName, Vector3 localPosition)
+        {
+            var bone = new GameObject(boneName).transform;
+            bone.SetParent(parent, false);
+            bone.localPosition = localPosition;
+            return bone;
+        }
+
+        private static void CreateFinger(Transform hand, string prefix, string fingerName, Vector3 basePosition, Vector3 segmentOffset, Material material)
+        {
+            var parent = hand;
+            for (int i = 1; i <= 4; i++)
+            {
+                var bone = CreateBone(parent, $"{prefix}Hand{fingerName}{i}", i == 1 ? basePosition : segmentOffset);
+                CreateVisualBox(bone, $"{fingerName}_{i}_Proxy", segmentOffset * 0.5f, new Vector3(0.018f, 0.018f, Mathf.Max(0.018f, segmentOffset.magnitude)), material);
+                parent = bone;
+            }
+        }
+
+        private static void CreateVisualBox(Transform parent, string name, Vector3 localPosition, Vector3 localScale, Material material)
+        {
+            var box = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            box.name = name;
+            box.transform.SetParent(parent, false);
+            box.transform.localPosition = localPosition;
+            box.transform.localScale = localScale;
+
+            var collider = box.GetComponent<Collider>();
+            if (collider != null) Object.DestroyImmediate(collider);
+
+            var renderer = box.GetComponent<Renderer>();
+            if (renderer != null) renderer.sharedMaterial = material;
         }
 
         private static void EnsureRuntimeComponents(GameObject instance, HandSide handSide)
@@ -319,6 +409,25 @@ namespace NursingSim.EditorTools
             EnsureFolder("Assets/_Project/Art/Models");
             EnsureFolder("Assets/_Project/Art/Models/Hands");
             EnsureFolder(GeneratedMeshFolder);
+        }
+
+        private static Material EnsurePlaceholderHandMaterial()
+        {
+            EnsureFolder("Assets/_Project/Art");
+            EnsureFolder("Assets/_Project/Art/Materials");
+
+            var material = AssetDatabase.LoadAssetAtPath<Material>(PlaceholderMaterialPath);
+            if (material != null) return material;
+
+            var shader = Shader.Find("Universal Render Pipeline/Lit");
+            if (shader == null) shader = Shader.Find("Standard");
+            material = new Material(shader)
+            {
+                name = "PlaceholderHand",
+                color = new Color(0.82f, 0.64f, 0.52f, 1f)
+            };
+            AssetDatabase.CreateAsset(material, PlaceholderMaterialPath);
+            return material;
         }
 
         private static void EnsureFolder(string path)

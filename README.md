@@ -23,32 +23,73 @@
 8. [08. 리스크](./docs/08-risks-and-mitigation.md) — 리스크와 대응
 9. [10. 핸드 시뮬레이션 통합 계획](./docs/10-hand-simulation-plan.md) — 데스크톱 손/팔 조작 통합 계획
 10. [11. 처치실 Environment Map](./docs/11-treatment-room-environment-map.md) — `Simulation_IMInjection` 처치실 오브젝트/좌표 기준표
+11. [12. 중간 진행 보고서](./docs/12-interim-progress-report.md) — 현재 구현 상태 요약
+12. [13. Unity MCP 운용](./docs/13-unity-mcp-operations.md) — Unity 자동화/검증 도구 운용 메모
 
-## 개발 환경 (예정)
+## 개발 환경
 
 | 항목 | 값 |
 |---|---|
-| Unity | 6 LTS (대안 2022.3 LTS) |
+| Unity | **6000.0.73f1** (`ProjectSettings/ProjectVersion.txt` 기준) |
 | Render Pipeline | URP |
 | Target | Windows 64-bit, macOS (Apple Silicon + Intel) |
-| 주요 패키지 | Input System, TextMeshPro, Cinemachine |
+| 주요 패키지 | Input System, TextMeshPro, Cinemachine, glTFast, Unity Test Framework |
+| 추가 패키지 레지스트리 | Unity Registry, OpenUPM (`package.openupm.com`), Git URL package |
 | IDE | Rider 또는 VS Code + Unity extension |
-| VCS | Git + Git LFS (바이너리 에셋용) |
+| VCS | Git + Git LFS |
 
-## 빌드 방법 (초안)
+## 처음 클론해서 열기
 
-> Unity 프로젝트 생성 후 갱신 예정. 현재는 기획 단계.
+이 저장소는 repo 루트와 Unity 프로젝트 루트가 다르다. Unity Hub에서 열어야 하는 폴더는 repo 루트가 아니라 **`NursingSimulation/`** 하위 폴더다.
 
-1. Unity Hub에서 Unity 6 LTS로 프로젝트 열기
-2. Package Manager에서 누락 패키지 설치 확인
-3. `File → Build Settings`에서 대상 플랫폼 선택
-4. `Scenes in Build`에 `MainMenu`, `Briefing`, `Simulation_IMInjection`, `Debriefing` 추가
-5. `Build` 실행
+```bash
+git lfs install
+git clone https://github.com/Facical/Nursing_simulation.git
+cd Nursing_simulation
+git lfs pull
+```
+
+1. Unity Hub에서 **Unity 6000.0.73f1** 설치 여부를 확인한다.
+2. Unity Hub의 `Add project from disk`로 `Nursing_simulation/NursingSimulation` 폴더를 선택한다.
+3. 첫 실행 시 Unity가 `Library/`와 패키지 캐시를 재생성한다. 에셋과 패키지가 많아서 첫 import는 시간이 걸릴 수 있다.
+4. 패키지는 `Packages/manifest.json` 기준으로 복원된다. Unity Registry, OpenUPM, GitHub 접근이 가능한 네트워크 환경이 필요하다.
+5. 에디터에서 실행할 때는 `Assets/_Project/Scenes/MainMenu.unity`를 열고 Play를 누른다.
+
+GitHub의 `Download ZIP`은 Git LFS 에셋을 제대로 받지 못할 수 있으므로 사용하지 않는다. 반드시 `git clone`과 `git lfs pull`을 사용한다.
+
+## 씬과 실행
+
+`ProjectSettings/EditorBuildSettings.asset`에는 다음 씬이 등록되어 있다.
+
+- `Assets/_Project/Scenes/MainMenu.unity`
+- `Assets/_Project/Scenes/Briefing.unity`
+- `Assets/_Project/Scenes/Simulation_IMInjection.unity`
+- `Assets/_Project/Scenes/Debriefing.unity`
+
+시나리오나 씬 와이어링을 다시 생성해야 할 때는 Unity 메뉴에서 아래 순서로 실행한다.
+
+1. `Tools > Nursing Sim > Phase 2 > 1. Create Full KABONE Scenario`
+2. `Tools > Nursing Sim > Phase 2 > 2. Wire Simulation Scene (Full)`
+3. 선택 사항: `Tools > Nursing Sim > Phase 3 > 1. Spike: Wire Step 2 손위생 (3D)`
+
+## Public Clone 유의사항
+
+대용량 `.glb`, `.fbx`, 이미지, 폰트, `.pptx`는 Git LFS로 관리한다. LFS 파일이 포인터 텍스트로 보이면 `git lfs pull`을 다시 실행한다.
+
+라이선스가 확인되지 않은 `Assets/ThirdParty/ArmTutorial/` 원본 에셋은 public repo에 포함하지 않는다. 대신 public clone에서도 missing mesh 없이 열리도록 `PlayerHand_Left`/`PlayerHand_Right`는 자체 placeholder 손 prefab으로 저장되어 있다. 정식 라이선스가 있는 `armTutorial.unitypackage`를 가진 경우에만 `Assets/ThirdParty/ArmTutorial/`로 import한 뒤 `Tools > Nursing Sim > Phase 3 > 0. Build Player Hand Prefabs`를 실행해 실제 손 mesh prefab을 재생성한다.
+
+`Library/`, `Temp/`, `Builds/`, `.codex/`, `.uloop/`, `.agents/`는 로컬 생성물이며 commit 대상이 아니다.
+
+## 빌드 방법
+
+1. `File > Build Profiles` 또는 `File > Build Settings`에서 Windows x64 또는 macOS 대상 플랫폼을 선택한다.
+2. Scenes in Build에 위 4개 씬이 등록되어 있는지 확인한다.
+3. 필요하면 `Development Build`를 끄고 `Build`를 실행한다.
 
 ## 기여
 
-현재는 단독 개발. 감수자(간호학 교수/임상 간호사) 섭외 후 `docs/02-functional-spec.md`의 절차 검증을 1차 품질 게이트로 삼는다.
+현재는 MVP 범위를 KABONE #3 근육주사 단일 시나리오로 제한한다. 절차·평가 로직을 바꿀 때는 `docs/09-references.md`의 KABONE 4.1 원문과 `docs/02-functional-spec.md`의 13단계 SO 매핑을 함께 확인한다.
 
 ## 라이선스
 
-미정 (내부 교육용 우선, 에셋 라이선스는 [06-asset-plan.md](./docs/06-asset-plan.md) 참조).
+미정. Public repo 공개는 소스/에셋의 재사용 라이선스 부여를 의미하지 않는다. 외부 에셋별 라이선스는 [Assets/_Project/Art/LICENSES.md](./NursingSimulation/Assets/_Project/Art/LICENSES.md)와 [06-asset-plan.md](./docs/06-asset-plan.md)를 참조한다.

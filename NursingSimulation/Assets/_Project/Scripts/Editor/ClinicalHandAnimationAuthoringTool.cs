@@ -39,18 +39,59 @@ namespace NursingSim.EditorTools
 
         private static GameObject BuildPathProbe()
         {
+            var root = new GameObject("ClinicalHandPathProbe");
             var model = AssetDatabase.LoadAssetAtPath<GameObject>(SourceModelPath);
             if (model == null)
             {
-                Debug.LogWarning($"[ClinicalHandAnimation] Source model not found: {SourceModelPath}");
-                return new GameObject("ClinicalHandPathProbe");
+                Debug.LogWarning($"[ClinicalHandAnimation] Source model not found: {SourceModelPath}. Building placeholder probe paths.");
+                BuildPlaceholderProbeRig(root.transform);
+                return root;
             }
 
-            var root = new GameObject("ClinicalHandPathProbe");
             var visual = (GameObject)PrefabUtility.InstantiatePrefab(model);
             visual.name = "ArmVisual";
             visual.transform.SetParent(root.transform, false);
             return root;
+        }
+
+        private static void BuildPlaceholderProbeRig(Transform root)
+        {
+            var visual = new GameObject("ArmVisual").transform;
+            visual.SetParent(root, false);
+            BuildPlaceholderSide(visual, "Right", 1f);
+            BuildPlaceholderSide(visual, "Left", -1f);
+        }
+
+        private static void BuildPlaceholderSide(Transform parent, string side, float sign)
+        {
+            var prefix = $"mixamorig:{side}";
+            var shoulder = CreateBone(parent, $"{prefix}Shoulder", Vector3.zero);
+            var upperArm = CreateBone(shoulder, $"{prefix}Arm", new Vector3(sign * 0.08f, -0.04f, 0.08f));
+            var foreArm = CreateBone(upperArm, $"{prefix}ForeArm", new Vector3(sign * 0.18f, -0.03f, 0.18f));
+            var hand = CreateBone(foreArm, $"{prefix}Hand", new Vector3(sign * 0.16f, -0.02f, 0.18f));
+
+            CreateFinger(hand, prefix, "Thumb", new Vector3(-sign * 0.045f, -0.004f, 0.035f), new Vector3(-sign * 0.026f, 0f, 0.025f));
+            CreateFinger(hand, prefix, "Index", new Vector3(sign * 0.03f, 0f, 0.085f), new Vector3(0f, 0f, 0.034f));
+            CreateFinger(hand, prefix, "Middle", new Vector3(sign * 0.01f, 0f, 0.09f), new Vector3(0f, 0f, 0.038f));
+            CreateFinger(hand, prefix, "Ring", new Vector3(-sign * 0.01f, 0f, 0.086f), new Vector3(0f, 0f, 0.034f));
+            CreateFinger(hand, prefix, "Pinky", new Vector3(-sign * 0.03f, 0f, 0.078f), new Vector3(0f, 0f, 0.029f));
+        }
+
+        private static Transform CreateBone(Transform parent, string boneName, Vector3 localPosition)
+        {
+            var bone = new GameObject(boneName).transform;
+            bone.SetParent(parent, false);
+            bone.localPosition = localPosition;
+            return bone;
+        }
+
+        private static void CreateFinger(Transform hand, string prefix, string fingerName, Vector3 basePosition, Vector3 segmentOffset)
+        {
+            var parent = hand;
+            for (int i = 1; i <= 4; i++)
+            {
+                parent = CreateBone(parent, $"{prefix}Hand{fingerName}{i}", i == 1 ? basePosition : segmentOffset);
+            }
         }
 
         private static AnimationClip CreateClip(
