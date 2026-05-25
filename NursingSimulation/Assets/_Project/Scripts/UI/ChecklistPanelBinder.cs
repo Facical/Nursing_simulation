@@ -56,7 +56,7 @@ namespace NursingSim.UI
             onSubmit = null;
         }
 
-        public void ShowPourStatus(string title, string instruction, int pumps, int minPumps, float rubSec, float minRubSec)
+        public void ShowPourStatus(string title, string instruction, int pumps, int minPumps, float rubSec, float minRubSec, bool requiresWaterContact = false, bool waterContacted = false)
         {
             EnsureActive();
             titleLabel.text = title;
@@ -64,13 +64,14 @@ namespace NursingSim.UI
             ClearItems();
             if (pourBlock) pourBlock.SetActive(true);
             if (submitButton) submitButton.gameObject.SetActive(false);
-            UpdatePourStatus(pumps, minPumps, rubSec, minRubSec);
+            UpdatePourStatus(pumps, minPumps, rubSec, minRubSec, requiresWaterContact, waterContacted);
         }
 
-        public void UpdatePourStatus(int pumps, int minPumps, float rubSec, float minRubSec)
+        public void UpdatePourStatus(int pumps, int minPumps, float rubSec, float minRubSec, bool requiresWaterContact = false, bool waterContacted = false)
         {
             if (pourStatusLabel) {
-                pourStatusLabel.text = $"펌프 {pumps}/{minPumps}회   비비기 {rubSec:0.0}/{minRubSec:0}초";
+                string water = requiresWaterContact ? $"   물 접촉 {(waterContacted ? "완료" : "대기")}" : string.Empty;
+                pourStatusLabel.text = $"펌프 {pumps}/{minPumps}회{water}   비비기 {rubSec:0.0}/{minRubSec:0}초";
             }
             if (pourProgress) {
                 pourProgress.value = minRubSec <= 0f ? 0f : Mathf.Clamp01(rubSec / minRubSec);

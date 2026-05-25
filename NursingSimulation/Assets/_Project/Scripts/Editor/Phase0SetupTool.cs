@@ -18,30 +18,23 @@ namespace NursingSim.EditorTools
             ClearIfExists("Tray_Placeholder");
             ClearIfExists("Cabinet_Placeholder");
 
-            var floor = GameObject.CreatePrimitive(PrimitiveType.Plane);
-            floor.name = "Floor";
+            var floor = AssetCatalogHelper.SpawnRole("Floor", "Floor", PrimitiveType.Plane, new Vector3(2f, 1f, 2f));
             floor.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-            floor.transform.localScale = new Vector3(2f, 1f, 2f);
 
             var patient = new GameObject("Patient_Placeholder");
             patient.transform.position = new Vector3(0f, 0.5f, 0f);
-            var patientBody = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-            patientBody.name = "Body";
+            var patientBody = AssetCatalogHelper.SpawnRole("PatientBody", "Body", PrimitiveType.Capsule, Vector3.one);
             patientBody.transform.SetParent(patient.transform, false);
 
             var tray = new GameObject("Tray_Placeholder");
             tray.transform.position = new Vector3(1.5f, 0.8f, 0f);
-            var trayTop = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            trayTop.name = "TrayTop";
+            var trayTop = AssetCatalogHelper.SpawnRole("Tray", "TrayTop", PrimitiveType.Cube, new Vector3(0.6f, 0.05f, 0.4f));
             trayTop.transform.SetParent(tray.transform, false);
-            trayTop.transform.localScale = new Vector3(0.6f, 0.05f, 0.4f);
 
             var cabinet = new GameObject("Cabinet_Placeholder");
             cabinet.transform.position = new Vector3(-2f, 1f, 0f);
-            var cabinetBody = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            cabinetBody.name = "Body";
+            var cabinetBody = AssetCatalogHelper.SpawnRole("Cabinet", "Body", PrimitiveType.Cube, new Vector3(0.5f, 2f, 0.4f));
             cabinetBody.transform.SetParent(cabinet.transform, false);
-            cabinetBody.transform.localScale = new Vector3(0.5f, 2f, 0.4f);
 
             var mainCam = GameObject.Find("Main Camera");
             if (mainCam != null)

@@ -18,7 +18,7 @@ namespace NursingSim.Core.Runner
         [Header("Bus")]
         [SerializeField] private FeedbackBus bus;
 
-        [Header("Controllers (scene instances)")]
+        [Header("Controllers (scene instances) — UI variants")]
         [SerializeField] private ChecklistStepController checklistController;
         [SerializeField] private ToolInteractionStepController toolController;
         [SerializeField] private DialogueStepController dialogueController;
@@ -26,6 +26,11 @@ namespace NursingSim.Core.Runner
         [SerializeField] private LandmarkPickStepController landmarkController;
         [SerializeField] private SequenceStepController sequenceController;
         [SerializeField] private ToggleGroupStepController toggleController;
+
+        [Header("Controllers — 3D physical variants (optional)")]
+        [SerializeField] private ToolInteraction3DStepController toolController3D;
+        [Tooltip("step.stepId list that should use the 3D physical controller instead of the UI variant. Steps not listed fall back to UI.")]
+        [SerializeField] private List<string> physicalStepIds = new List<string>();
 
         [Header("Save")]
         [SerializeField] private SaveService saveService;
@@ -82,9 +87,10 @@ namespace NursingSim.Core.Runner
 
         private IStepController ControllerFor(ScenarioStep step)
         {
+            bool use3D = !string.IsNullOrEmpty(step.stepId) && physicalStepIds.Contains(step.stepId);
             switch (step) {
                 case ChecklistStep _: return checklistController;
-                case ToolInteractionStep _: return toolController;
+                case ToolInteractionStep _: return (use3D && toolController3D != null) ? (IStepController)toolController3D : toolController;
                 case DialogueStep _: return dialogueController;
                 case SelectionStep _: return selectionController;
                 case LandmarkPickStep _: return landmarkController;

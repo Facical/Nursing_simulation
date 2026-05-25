@@ -15,6 +15,8 @@
 *.FBX filter=lfs diff=lfs merge=lfs -text
 *.obj filter=lfs diff=lfs merge=lfs -text
 *.blend filter=lfs diff=lfs merge=lfs -text
+*.glb filter=lfs diff=lfs merge=lfs -text
+*.gltf filter=lfs diff=lfs merge=lfs -text
 
 # Image source files
 *.psd filter=lfs diff=lfs merge=lfs -text
@@ -37,6 +39,9 @@
 # Video
 *.mp4 filter=lfs diff=lfs merge=lfs -text
 *.mov filter=lfs diff=lfs merge=lfs -text
+
+# Documents
+*.pptx filter=lfs diff=lfs merge=lfs -text
 
 # Unity asset bundles
 *.unitypackage filter=lfs diff=lfs merge=lfs -text

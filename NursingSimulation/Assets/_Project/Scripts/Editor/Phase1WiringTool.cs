@@ -162,32 +162,25 @@ namespace NursingSim.EditorTools
         private static void EnsurePhase0Placeholders()
         {
             if (GameObject.Find("Floor") == null) {
-                var floor = GameObject.CreatePrimitive(PrimitiveType.Plane);
-                floor.name = "Floor";
-                floor.transform.localScale = new Vector3(2f, 1f, 2f);
+                AssetCatalogHelper.SpawnRole("Floor", "Floor", PrimitiveType.Plane, new Vector3(2f, 1f, 2f));
             }
             if (GameObject.Find("Patient_Placeholder") == null) {
                 var patient = new GameObject("Patient_Placeholder");
                 patient.transform.position = new Vector3(0f, 0.5f, 0f);
-                var body = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-                body.name = "Body";
+                var body = AssetCatalogHelper.SpawnRole("PatientBody", "Body", PrimitiveType.Capsule, Vector3.one);
                 body.transform.SetParent(patient.transform, false);
             }
             if (GameObject.Find("Tray_Placeholder") == null) {
                 var tray = new GameObject("Tray_Placeholder");
                 tray.transform.position = new Vector3(1.5f, 0.8f, 0f);
-                var top = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                top.name = "TrayTop";
+                var top = AssetCatalogHelper.SpawnRole("Tray", "TrayTop", PrimitiveType.Cube, new Vector3(0.6f, 0.05f, 0.4f));
                 top.transform.SetParent(tray.transform, false);
-                top.transform.localScale = new Vector3(0.6f, 0.05f, 0.4f);
             }
             if (GameObject.Find("Cabinet_Placeholder") == null) {
                 var cab = new GameObject("Cabinet_Placeholder");
                 cab.transform.position = new Vector3(-2f, 1f, 0f);
-                var body = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                body.name = "Body";
+                var body = AssetCatalogHelper.SpawnRole("Cabinet", "Body", PrimitiveType.Cube, new Vector3(0.5f, 2f, 0.4f));
                 body.transform.SetParent(cab.transform, false);
-                body.transform.localScale = new Vector3(0.5f, 2f, 0.4f);
             }
             var mainCam = GameObject.Find("Main Camera");
             if (mainCam != null && mainCam.transform.position == Vector3.zero) {
@@ -270,10 +263,8 @@ namespace NursingSim.EditorTools
         {
             var existing = GameObject.Find("HandSanitizerPump");
             if (existing == null) {
-                existing = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-                existing.name = "HandSanitizerPump";
+                existing = AssetCatalogHelper.SpawnRole("HandSanitizerPump", "HandSanitizerPump", PrimitiveType.Cylinder, new Vector3(0.12f, 0.2f, 0.12f));
                 existing.transform.position = new Vector3(-1.6f, 0.8f, 0.4f);
-                existing.transform.localScale = new Vector3(0.12f, 0.2f, 0.12f);
             }
             existing.tag = "Untagged";
             int layer = LayerMask.NameToLayer(InteractableLayerName);

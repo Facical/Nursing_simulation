@@ -1,0 +1,175 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12e156f5e00864ccbbf18941d5200d47, type: 3}
+  m_Name: AssetCatalog
+  m_EditorClassIdentifier: 
+  slots:
+  - role: HandSanitizerPump
+    prefab: {fileID: 8625720119953545080, guid: 4dfc79728edeb46c2a581d2b9f4ea26b, type: 3}
+    fallbackPrimitive: 0
+    fallbackScale: {x: 0, y: 0, z: 0}
+    fallbackColor: {r: 0, g: 0, b: 0, a: 0}
+    instancePosition: {x: 0, y: 0, z: 0}
+    instanceRotationEuler: {x: 0, y: 0, z: 0}
+    instanceScale: {x: 1.0, y: 1.0, z: 1.0}
+  - role: Cabinet
+    prefab: {fileID: 1604264320326179990, guid: e9d112aa972b7447f88c78cba569eb0a, type: 3}
+    fallbackPrimitive: 3
+    fallbackScale: {x: 0.5, y: 2, z: 0.4}
+    fallbackColor: {r: 0.85, g: 0.85, b: 0.85, a: 1}
+    instancePosition: {x: 0, y: 0, z: 0}
+    instanceRotationEuler: {x: 0, y: 0, z: 0}
+    instanceScale: {x: 0.026, y: 0.026, z: 0.026}
+  - role: Tray
+    prefab: {fileID: 164517919202078637, guid: 8952e42611cf84e2b9984d12087061ed, type: 3}
+    fallbackPrimitive: 3
+    fallbackScale: {x: 0.6, y: 0.05, z: 0.4}
+    fallbackColor: {r: 0.7, g: 0.7, b: 0.75, a: 1}
+    instancePosition: {x: 0, y: 0, z: 0}
+    instanceRotationEuler: {x: 0, y: 0, z: 0}
+    instanceScale: {x: 0.016, y: 0.016, z: 0.016}
+  - role: Cart
+    prefab: {fileID: 8895226690185077632, guid: 45406c2235ce84dfe9fea41e098f282a, type: 3}
+    fallbackPrimitive: 3
+    fallbackScale: {x: 0.8, y: 0.6, z: 0.5}
+    fallbackColor: {r: 0.9, g: 0.9, b: 0.9, a: 1}
+    instancePosition: {x: 0, y: 0, z: 0}
+    instanceRotationEuler: {x: 0, y: 0, z: 0}
+    instanceScale: {x: 0.011, y: 0.011, z: 0.011}
+  - role: PatientBody
+    prefab: {fileID: 7078409105953398745, guid: 2dc396c91ec0845afbcf2d5e1c84f2ca, type: 3}
+    fallbackPrimitive: 1
+    fallbackScale: {x: 1, y: 1, z: 1}
+    fallbackColor: {r: 0.95, g: 0.85, b: 0.75, a: 1}
+    instancePosition: {x: 0, y: 0, z: 0}
+    instanceRotationEuler: {x: 90, y: 0, z: 0}
+    instanceScale: {x: 1.0, y: 1.0, z: 1.0}
+  - role: Syringe3cc
+    prefab: {fileID: 8081041244465845413, guid: 71380160d1b234b2187b4f745c0258a6, type: 3}
+    fallbackPrimitive: 2
+    fallbackScale: {x: 0.012, y: 0.06, z: 0.012}
+    fallbackColor: {r: 0.85, g: 0.92, b: 1, a: 1}
+    instancePosition: {x: 0, y: 0, z: 0}
+    instanceRotationEuler: {x: 0, y: 0, z: 0}
+    instanceScale: {x: 0.027, y: 0.027, z: 0.027}
+  - role: Needle21G
+    prefab: {fileID: 0}
+    fallbackPrimitive: 2
+    fallbackScale: {x: 0.001, y: 0.025, z: 0.001}
+    fallbackColor: {r: 0.2, g: 0.5, b: 0.3, a: 1}
+    instancePosition: {x: 0, y: 0, z: 0}
+    instanceRotationEuler: {x: 0, y: 0, z: 0}
+    instanceScale: {x: 1.0, y: 1.0, z: 1.0}
+  - role: Needle23G
+    prefab: {fileID: 0}
+    fallbackPrimitive: 2
+    fallbackScale: {x: 0.001, y: 0.025, z: 0.001}
+    fallbackColor: {r: 0.2, g: 0.3, b: 0.5, a: 1}
+    instancePosition: {x: 0, y: 0, z: 0}
+    instanceRotationEuler: {x: 0, y: 0, z: 0}
+    instanceScale: {x: 1.0, y: 1.0, z: 1.0}
+  - role: Ampoule
+    prefab: {fileID: 2523685157165720905, guid: b3416b06a141a4c909094d54b577ebca, type: 3}
+    fallbackPrimitive: 1
+    fallbackScale: {x: 0.012, y: 0.025, z: 0.012}
+    fallbackColor: {r: 0.7, g: 0.45, b: 0.15, a: 1}
+    instancePosition: {x: 0, y: 0, z: 0}
+    instanceRotationEuler: {x: 0, y: 0, z: 0}
+    instanceScale: {x: 0.05, y: 0.05, z: 0.05}
+  - role: AlcoholSwab
+    prefab: {fileID: 2026364010336424559, guid: 1376d0b3321cf4561897e6cc4567fee2, type: 3}
+    fallbackPrimitive: 3
+    fallbackScale: {x: 0.06, y: 0.005, z: 0.06}
+    fallbackColor: {r: 0.85, g: 0.85, b: 0.9, a: 1}
+    instancePosition: {x: 0, y: 0, z: 0}
+    instanceRotationEuler: {x: 0, y: 0, z: 0}
+    instanceScale: {x: 0.0002, y: 0.0002, z: 0.0002}
+  - role: Gauze
+    prefab: {fileID: 1194054381234778027, guid: e422cdf899d0648a18736e32d033c9c5, type: 3}
+    fallbackPrimitive: 3
+    fallbackScale: {x: 0.05, y: 0.002, z: 0.05}
+    fallbackColor: {r: 0.95, g: 0.95, b: 0.92, a: 1}
+    instancePosition: {x: 0, y: 0, z: 0}
+    instanceRotationEuler: {x: 0, y: 0, z: 0}
+    instanceScale: {x: 0.05, y: 0.05, z: 0.05}
+  - role: SharpsContainer
+    prefab: {fileID: 8814784905296464294, guid: 3f65d5fe4f463496d97dd7514d008e32, type: 3}
+    fallbackPrimitive: 3
+    fallbackScale: {x: 0.15, y: 0.2, z: 0.15}
+    fallbackColor: {r: 0.95, g: 0.85, b: 0.1, a: 1}
+    instancePosition: {x: 0, y: 0, z: 0}
+    instanceRotationEuler: {x: 0, y: 0, z: 0}
+    instanceScale: {x: 0.15, y: 0.15, z: 0.15}
+  - role: Floor
+    prefab: {fileID: 0}
+    fallbackPrimitive: 4
+    fallbackScale: {x: 0.7, y: 1, z: 0.7}
+    fallbackColor: {r: 0.9, g: 0.85, b: 0.7, a: 1}
+    instancePosition: {x: 0, y: 0, z: 0}
+    instanceRotationEuler: {x: 0, y: 0, z: 0}
+    instanceScale: {x: 1, y: 1, z: 1}
+  - role: Wall_N
+    prefab: {fileID: 0}
+    fallbackPrimitive: 3
+    fallbackScale: {x: 7, y: 3, z: 0.1}
+    fallbackColor: {r: 0.95, g: 0.95, b: 0.95, a: 1}
+    instancePosition: {x: 0, y: 0, z: 0}
+    instanceRotationEuler: {x: 0, y: 0, z: 0}
+    instanceScale: {x: 1, y: 1, z: 1}
+  - role: Wall_S
+    prefab: {fileID: 0}
+    fallbackPrimitive: 3
+    fallbackScale: {x: 7, y: 3, z: 0.1}
+    fallbackColor: {r: 0.95, g: 0.95, b: 0.95, a: 1}
+    instancePosition: {x: 0, y: 0, z: 0}
+    instanceRotationEuler: {x: 0, y: 0, z: 0}
+    instanceScale: {x: 1, y: 1, z: 1}
+  - role: Wall_E
+    prefab: {fileID: 0}
+    fallbackPrimitive: 3
+    fallbackScale: {x: 0.1, y: 3, z: 7}
+    fallbackColor: {r: 0.95, g: 0.95, b: 0.95, a: 1}
+    instancePosition: {x: 0, y: 0, z: 0}
+    instanceRotationEuler: {x: 0, y: 0, z: 0}
+    instanceScale: {x: 1, y: 1, z: 1}
+  - role: Wall_W
+    prefab: {fileID: 0}
+    fallbackPrimitive: 3
+    fallbackScale: {x: 0.1, y: 3, z: 7}
+    fallbackColor: {r: 0.95, g: 0.95, b: 0.95, a: 1}
+    instancePosition: {x: 0, y: 0, z: 0}
+    instanceRotationEuler: {x: 0, y: 0, z: 0}
+    instanceScale: {x: 1, y: 1, z: 1}
+  - role: Door
+    prefab: {fileID: 0}
+    fallbackPrimitive: 3
+    fallbackScale: {x: 1.0, y: 2.4, z: 0.06}
+    fallbackColor: {r: 0.55, g: 0.4, b: 0.25, a: 1}
+    instancePosition: {x: 0, y: 0, z: 0}
+    instanceRotationEuler: {x: 0, y: 0, z: 0}
+    instanceScale: {x: 1, y: 1, z: 1}
+  - role: Ceiling
+    prefab: {fileID: 0}
+    fallbackPrimitive: 4
+    fallbackScale: {x: 0.7, y: 1, z: 0.7}
+    fallbackColor: {r: 0.97, g: 0.97, b: 0.97, a: 1}
+    instancePosition: {x: 0, y: 0, z: 0}
+    instanceRotationEuler: {x: 180, y: 0, z: 0}
+    instanceScale: {x: 1, y: 1, z: 1}
+  - role: Bed
+    prefab: {fileID: 0}
+    fallbackPrimitive: 3
+    fallbackScale: {x: 1, y: 0.5, z: 2.1}
+    fallbackColor: {r: 0.95, g: 0.95, b: 0.95, a: 1}
+    instancePosition: {x: 0, y: 0, z: 0}
+    instanceRotationEuler: {x: 0, y: 0, z: 0}
+    instanceScale: {x: 1, y: 1, z: 1}

@@ -28,6 +28,7 @@
 # Visual Studio / Rider / VS Code cache files
 .vs/
 .idea/
+.codex/
 
 # Downloaded font/asset packs at repo root (copy only needed files into Assets/_Project/)
 /Pretendard-*/
@@ -86,5 +87,16 @@ Desktop.ini
 # Logs / dumps
 *.log
 *.stackdump
+
+# Local agent/tool runtime state
+/NursingSimulation/.agents/
+/NursingSimulation/.codex/
+/NursingSimulation/.uloop/
+
+# Third-party assets that require redistribution clearance
+/NursingSimulation/Assets/ThirdParty/ArmTutorial.meta
+/NursingSimulation/Assets/ThirdParty/ArmTutorial/
+/NursingSimulation/Assets/_Project/Art/Models/Hands/Generated.meta
+/NursingSimulation/Assets/_Project/Art/Models/Hands/Generated/
 
 # Git LFS (바이너리 대용량 에셋용. 도입 시 .gitattributes 함께 관리)

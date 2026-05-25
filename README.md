@@ -7,7 +7,7 @@
 - **언어**: 한국어
 - **주 대상**: 간호대 학부생 (기본간호학 실습 예습/복습)
 - **1차 시나리오**: IM Injection (근육주사)
-- **참고 영상**: https://www.youtube.com/watch?v=3VF9yO4wrhM
+- **참고 영상**: https://www.youtube.com/watch?v=9f8rzK8ClE8 (현문사 기본간호학 핵심술기, 근육주사)
 
 ## 문서 인덱스
 
@@ -21,6 +21,8 @@
 6. [06. 에셋 계획](./docs/06-asset-plan.md) — 3D/오디오 조달
 7. [07. 로드맵](./docs/07-roadmap.md) — Phase별 마일스톤
 8. [08. 리스크](./docs/08-risks-and-mitigation.md) — 리스크와 대응
+9. [10. 핸드 시뮬레이션 통합 계획](./docs/10-hand-simulation-plan.md) — 데스크톱 손/팔 조작 통합 계획
+10. [11. 처치실 Environment Map](./docs/11-treatment-room-environment-map.md) — `Simulation_IMInjection` 처치실 오브젝트/좌표 기준표
 
 ## 개발 환경 (예정)
 

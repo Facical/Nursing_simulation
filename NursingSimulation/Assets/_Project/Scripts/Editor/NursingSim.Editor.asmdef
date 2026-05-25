@@ -5,6 +5,7 @@
         "NursingSim.Runtime",
         "Unity.TextMeshPro",
         "Unity.InputSystem",
+        "Unity.Cinemachine",
         "UnityEngine.UI"
     ],
     "includePlatforms": [

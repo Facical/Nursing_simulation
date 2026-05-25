@@ -1,0 +1,554 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7497549452501322915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2031c878e5ed2454dae34c7b1399ebf9, type: 3}
+  m_Name: SO_Step_09_HygieneAndDisinfect
+  m_EditorClassIdentifier: 
+  stepId: STEP_HYGIENE3_DISINFECT
+  title: "\uC190\uC704\uC0DD #3 + \uD53C\uBD80 \uC18C\uB3C5"
+  instruction: "\uC190\uC18C\uB3C5\uC81C\uB85C \uC190\uC704\uC0DD \uD6C4 \uC54C\uCF5C\uC19C\uC73C\uB85C
+    \uBD80\uC704 \uC18C\uB3C5(\uC548\u2192\uBC16, \uC9C1\uACBD 5~8cm, \uB9C8\uB984
+    \uB300\uAE30). (KABONE \uB2E8\uACC4 11, 12)"
+  weight: 5
+  feedbackTiming: 0
+  isCriticalGate: 0
+  failHint: "\uC678\u2192\uB0B4 \uC5ED\uBC29\uD5A5 \uB610\uB294 \uB9C8\uB984 \uB300\uAE30
+    \uB204\uB77D\uC740 \uAC10\uC810\uC785\uB2C8\uB2E4."
+  theoryRef: REF-KABONE-3-11,12
+  kind: 2
+  targetTag: HandSanitizerPump
+  thresholds:
+    minPumps: 2
+    minDurationSec: 10
+    items: []
+--- !u!114 &-6733422165657809449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e0e1624f9e9b4e68add89055eec3d70, type: 3}
+  m_Name: SO_Step_08b_LandmarkPick
+  m_EditorClassIdentifier: 
+  stepId: STEP_LANDMARK_PICK
+  title: "\uB79C\uB4DC\uB9C8\uD06C \uCD09\uC9C4 (\uB454\uBD80 \uBCF5\uBA74)"
+  instruction: "\uCE21\uC704 \uC790\uC138\uC758 \uD658\uC790\uC5D0\uC11C \uB454\uBD80
+    \uBCF5\uBA74 \uB79C\uB4DC\uB9C8\uD06C\uB97C \uC21C\uC11C\uB300\uB85C \uD074\uB9AD\uD558\uC138\uC694.
+    (KABONE \uB2E8\uACC4 10*)"
+  weight: 6
+  feedbackTiming: 0
+  isCriticalGate: 1
+  failHint: "\uC67C\uC190\uBC14\uB2E5 \u2192 \uB300\uC804\uC790 \u2192 \uC804\uC0C1\uC7A5\uACE8\uADF9(ASIS)
+    \u2192 \uC7A5\uACE8\uB2A5 V\uC790 \uC21C\uC73C\uB85C \uC9DA\uC2B5\uB2C8\uB2E4."
+  theoryRef: REF-KABONE-3-10
+  points:
+  - id: greater_trochanter
+    label: "\uB300\uC804\uC790 (greater trochanter)"
+  - id: asis
+    label: "\uC804\uC0C1\uC7A5\uACE8\uADF9 (ASIS)"
+  - id: iliac_crest
+    label: "\uC7A5\uACE8\uB2A5 (iliac crest)"
+  requireOrder: 1
+--- !u!114 &-2336947096049510450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 779cacdc631e84802a92baaa109f4f58, type: 3}
+  m_Name: SO_Step_08a_SiteSelection
+  m_EditorClassIdentifier: 
+  stepId: STEP_SITE_SELECTION
+  title: "\uC8FC\uC0AC \uBD80\uC704 \uC120\uC815"
+  instruction: "\uC0AC\uB840\uC5D0 \uB530\uB77C \uC801\uD569\uD55C \uC8FC\uC0AC \uBD80\uC704\uB97C
+    \uC120\uC815\uD558\uC138\uC694. \uBCF8 \uC2DC\uB098\uB9AC\uC624\uB294 \uCE21\uC704
+    \uC790\uC138\uB97C \uCDE8\uD55C \uD658\uC790\uC785\uB2C8\uB2E4. (KABONE \uB2E8\uACC4
+    10*)"
+  weight: 6
+  feedbackTiming: 1
+  isCriticalGate: 1
+  failHint: "\uCE21\uC704 \uC790\uC138 + Diclofenac 4mg \uBD80\uD53C\uC758 \uC0AC\uB840\uC5D0\uC11C\uB294
+    \uB454\uBD80 \uBCF5\uBA74(ventrogluteal)\uC774 \uC815\uB2F5\uC785\uB2C8\uB2E4."
+  theoryRef: REF-KABONE-3-10
+  options:
+  - id: ventrogluteal
+    label: "\u2461 \uB454\uBD80 \uBCF5\uBA74 (ventrogluteal)"
+    isCorrect: 1
+    reasonIfWrong: 2
+  - id: dorsogluteal
+    label: "\u2460 \uB454\uBD80 \uBC30\uBA74 (dorsogluteal)"
+    isCorrect: 0
+    reasonIfWrong: 2
+  - id: vastus
+    label: "\u2462 \uB300\uD1F4 (vastus lateralis)"
+    isCorrect: 0
+    reasonIfWrong: 2
+  - id: deltoid
+    label: "\u2463 \uC0BC\uAC01\uADFC \uC911\uC559"
+    isCorrect: 0
+    reasonIfWrong: 2
+--- !u!114 &-47425750829139619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09224791c4a874094912c4730959a066, type: 3}
+  m_Name: SO_Step_01_SixRights
+  m_EditorClassIdentifier: 
+  stepId: STEP_SIX_RIGHTS
+  title: "\uCC98\uBC29 \uD655\uC778 (6 Rights)"
+  instruction: "\uD22C\uC57D\uCC98\uBC29\uC744 6 Rights\uC5D0 \uB530\uB77C \uBAA8\uB450
+    \uD655\uC778\uD558\uC138\uC694. (KABONE \uB2E8\uACC4 2)"
+  weight: 12
+  feedbackTiming: 1
+  isCriticalGate: 1
+  failHint: "\uB300\uC0C1\uC790 \uB4F1\uB85D\uBC88\uD638\uB3C4 \uBC18\uB4DC\uC2DC
+    \uD655\uC778\uD574\uC57C \uD569\uB2C8\uB2E4 (KABONE 5 rights \uC815\uC758\uC5D0
+    \uD3EC\uD568)."
+  theoryRef: REF-KABONE-3-2
+  items:
+  - label: "\uB300\uC0C1\uC790 \uB4F1\uB85D\uBC88\uD638 (Right Patient ID)"
+    required: 1
+    distractor: 0
+  - label: "\uB300\uC0C1\uC790\uBA85 (Right Patient)"
+    required: 1
+    distractor: 0
+  - label: "\uC57D\uBA85 (Right Drug)"
+    required: 1
+    distractor: 0
+  - label: "\uC6A9\uB7C9 (Right Dose)"
+    required: 1
+    distractor: 0
+  - label: "\uD22C\uC5EC\uACBD\uB85C (Right Route)"
+    required: 1
+    distractor: 0
+  - label: "\uC2DC\uAC04 (Right Time)"
+    required: 1
+    distractor: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da7cc24290374228bead45d397e235e, type: 3}
+  m_Name: SO_Scenario_IMInjection_Phase2
+  m_EditorClassIdentifier: 
+  scenarioId: SCN_IM_INJECTION_001
+  title: "\uADFC\uC721\uC8FC\uC0AC \uD22C\uC57D (KABONE #3)"
+  briefingText: "\uBCD1\uB3D9 \uCC98\uCE58\uC2E4. \uD658\uC790 \uAE40\uCCA0\uC218
+    \uB2D8(M/45, \uB4F1\uB85D\uBC88\uD638 20260001)\uC5D0\uAC8C \uCC98\uBC29\uB41C
+    Diclofenac 4mg\uC744 IM\uC73C\uB85C \uD22C\uC5EC\uD558\uC2ED\uC2DC\uC624. \uBCF8
+    \uC2DC\uBBAC\uB808\uC774\uC158\uC740 KABONE \uD575\uC2EC\uAE30\uBCF8\uAC04\uD638\uC220
+    \uD3C9\uAC00\uD56D\uBAA9 \uD504\uB85C\uD1A0\uCF5C \uC81C4.1\uD310 \uD56D\uBAA9
+    #3 \uADFC\uC721\uC8FC\uC0AC\uB97C \uB530\uB985\uB2C8\uB2E4."
+  level: 0
+  maxScore: 100
+  sceneKey: Simulation_IMInjection
+  patient:
+    displayName: "\uAE40\uCCA0\uC218"
+    ageYears: 45
+    sexLabel: "\uB0A8"
+    registrationNumber: 20260001
+    diagnosis: "\uD1B5\uC99D \uD638\uC18C"
+    notes: 
+  prescription:
+    drugName: Diclofenac
+    dose: 4mg
+    route: IM
+    frequency: "1\uD68C"
+  steps:
+  - {fileID: -47425750829139619}
+  - {fileID: 3980736980050523998}
+  - {fileID: 8836646936690012418}
+  - {fileID: 49469235867820851}
+  - {fileID: 3055089412475324073}
+  - {fileID: 5596924182631741661}
+  - {fileID: 4060929642083417108}
+  - {fileID: -2336947096049510450}
+  - {fileID: -6733422165657809449}
+  - {fileID: -7497549452501322915}
+  - {fileID: 7313931597451739260}
+  - {fileID: 3469792495712067623}
+  - {fileID: 4194070219187841339}
+--- !u!114 &49469235867820851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09224791c4a874094912c4730959a066, type: 3}
+  m_Name: SO_Step_04_SupplyPrep
+  m_EditorClassIdentifier: 
+  stepId: STEP_SUPPLY_PREP
+  title: "\uBB3C\uD488 \uC900\uBE44"
+  instruction: "\uD2B8\uB808\uC774\uC5D0 KABONE \uB2E8\uACC4 4\uC758 \uD544\uC694\uC7A5\uBE44/\uBB3C\uD488\uC744
+    \uC900\uBE44\uD558\uC138\uC694."
+  weight: 4
+  feedbackTiming: 1
+  isCriticalGate: 0
+  failHint: "KABONE 5\uC808(\uD544\uC694\uC7A5\uBE44/\uBB3C\uD488) \uD56D\uBAA9\uC744
+    \uBAA8\uB450 \uCC59\uAE30\uACE0 distractor\uB294 \uBE7C\uC138\uC694."
+  theoryRef: REF-KABONE-3-4
+  items:
+  - label: "\uD22C\uC57D\uCE74\uB4DC"
+    required: 1
+    distractor: 0
+  - label: "\uC77C\uD68C\uC6A9 \uBA78\uADE0 \uC8FC\uC0AC\uAE30 2~5cc \uADDC\uACA9\uBCC4
+      2\uAC1C\uC529"
+    required: 1
+    distractor: 0
+  - label: "\uC18C\uB3C5\uC19C"
+    required: 1
+    distractor: 0
+  - label: "\uC190\uC18C\uB3C5\uC81C"
+    required: 1
+    distractor: 0
+  - label: "Diclofenac 4mg \uC570\uD50C 2\uAC1C"
+    required: 1
+    distractor: 0
+  - label: "\uD22C\uC57D\uCE74\uD2B8 \uB610\uB294 \uC7C1\uBC18(tray)"
+    required: 1
+    distractor: 0
+  - label: "\uD22C\uC57D\uAE30\uB85D\uC9C0\xB7\uAC04\uD638\uAE30\uB85D\uC9C0"
+    required: 1
+    distractor: 0
+  - label: "\uC190\uC0C1\uC131\uD3D0\uAE30\uBB3C \uC804\uC6A9\uC6A9\uAE30"
+    required: 1
+    distractor: 0
+  - label: "\uC77C\uBC18 \uC758\uB8CC\uD3D0\uAE30\uBB3C \uC804\uC6A9\uC6A9\uAE30"
+    required: 1
+    distractor: 0
+  - label: "\uC778\uC290\uB9B0 \uC8FC\uC0AC\uAE30"
+    required: 1
+    distractor: 1
+  - label: "26G \uD53C\uB0B4\uC8FC\uC0AC\uC6A9 \uBC14\uB298"
+    required: 1
+    distractor: 1
+  - label: "\uD3EC\uBE44\uB3C8"
+    required: 1
+    distractor: 1
+--- !u!114 &3055089412475324073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2031c878e5ed2454dae34c7b1399ebf9, type: 3}
+  m_Name: SO_Step_05_ApproachIntro
+  m_EditorClassIdentifier: 
+  stepId: STEP_APPROACH_INTRO
+  title: "\uD658\uC790 \uC811\uADFC + \uC190\uC704\uC0DD #2 + \uC790\uAE30\uC18C\uAC1C"
+  instruction: "\uD658\uC790\uC5D0\uAC8C \uC811\uADFC\uD558\uC5EC \uC190\uC18C\uB3C5\uC81C\uB85C
+    \uC190\uC704\uC0DD \uD6C4 \uAC04\uD638\uC0AC \uC790\uC2E0\uC744 \uC18C\uAC1C\uD558\uC138\uC694.
+    (KABONE \uB2E8\uACC4 5, 6)"
+  weight: 4
+  feedbackTiming: 1
+  isCriticalGate: 0
+  failHint: "KABONE \uB2E8\uACC4 6\uC740 \uC190\uC18C\uB3C5\uC81C \uC190\uC704\uC0DD\uC744
+    \uBA85\uC2DC\uD569\uB2C8\uB2E4."
+  theoryRef: REF-KABONE-3-5,6
+  kind: 2
+  targetTag: HandSanitizerPump
+  thresholds:
+    minPumps: 2
+    minDurationSec: 10
+    items: []
+--- !u!114 &3469792495712067623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480a96076b7b94c49b499b3a199fa9b2, type: 3}
+  m_Name: SO_Step_11_PostInjection
+  m_EditorClassIdentifier: 
+  stepId: STEP_POST_INJECTION
+  title: "\uBC1C\uCE68 \xB7 \uB9C8\uC0AC\uC9C0 \xB7 \uC790\uC138 \xB7 \uD6C4 \uC124\uBA85
+    \xB7 \uCEE4\uD2BC \uAC77\uAE30"
+  instruction: "\uC0BD\uC785 \uAC01\uB3C4 \uADF8\uB300\uB85C \uBC1C\uCE68, \uC18C\uB3C5\uC19C
+    \uB9C8\uC0AC\uC9C0, \uC790\uC138 \uD3B8\uC548\uD558\uAC8C, \uD6C4 \uAE30\uB300\uD6A8\uACFC
+    \uC124\uBA85, \uCEE4\uD2BC \uAC77\uAE30. (KABONE \uB2E8\uACC4 15-18)"
+  weight: 4
+  feedbackTiming: 1
+  isCriticalGate: 0
+  failHint: "KABONE \uB2E8\uACC4 15-18 \uBAA8\uB450 \uC218\uD589\uB418\uC5B4\uC57C
+    \uD569\uB2C8\uB2E4."
+  theoryRef: REF-KABONE-3-15-18
+  items:
+  - label: "\uC0BD\uC785 \uAC01\uB3C4 \uADF8\uB300\uB85C \uBC1C\uCE68"
+    required: 1
+  - label: "\uC18C\uB3C5\uC19C\uC73C\uB85C \uB204\uB974\uBA70 \uB9C8\uC0AC\uC9C0"
+    required: 1
+  - label: "\uD658\uC758 \uC785\uD788\uACE0 \uC790\uC138 \uD3B8\uC548\uD558\uAC8C"
+    required: 1
+  - label: "\uC8FC\uC0AC \uD6C4 \uAE30\uB300\uD6A8\uACFC \uC124\uBA85"
+    required: 1
+  - label: "\uCEE4\uD2BC(\uC2A4\uD06C\uB9B0) \uAC77\uAE30"
+    required: 1
+--- !u!114 &3980736980050523998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2031c878e5ed2454dae34c7b1399ebf9, type: 3}
+  m_Name: SO_Step_02_HandHygiene1
+  m_EditorClassIdentifier: 
+  stepId: STEP_HAND_HYGIENE_1
+  title: "\uC190\uC704\uC0DD #1 (\uBB3C\xB7\uBE44\uB204)"
+  instruction: "\uBB3C\uACFC \uBE44\uB204\uB85C \uC190\uC704\uC0DD\uC744 \uC2E4\uC2DC\uD558\uC138\uC694.
+    (KABONE \uB2E8\uACC4 1)"
+  weight: 5
+  feedbackTiming: 0
+  isCriticalGate: 0
+  failHint: "WHO \uC190\uC704\uC0DD \uC9C0\uCE68: \uBE44\uB204 \uC0AC\uC6A9 \uD6C4
+    15\uCD08 \uC774\uC0C1 \uBE44\uBE44\uAE30."
+  theoryRef: REF-KABONE-3-1
+  kind: 2
+  targetTag: HandSanitizerPump
+  thresholds:
+    minPumps: 2
+    minDurationSec: 15
+    requiresWaterContact: 1
+    items: []
+--- !u!114 &4060929642083417108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480a96076b7b94c49b499b3a199fa9b2, type: 3}
+  m_Name: SO_Step_07_ExplainPrivacy
+  m_EditorClassIdentifier: 
+  stepId: STEP_EXPLAIN_PRIVACY
+  title: "\uC124\uBA85 \xB7 \uB3D9\uC758 \xB7 \uC0AC\uC0DD\uD65C"
+  instruction: "\uD22C\uC5EC \uBAA9\uC801\xB7\uC791\uC6A9\xB7\uC720\uC758\uC0AC\uD56D
+    \uC124\uBA85 + \uC758\uBB38\uC0AC\uD56D \uC9C8\uBB38 \uC720\uB3C4 + \uC0AC\uC0DD\uD65C
+    \uBCF4\uD638. (KABONE \uB2E8\uACC4 8, 9)"
+  weight: 3
+  feedbackTiming: 1
+  isCriticalGate: 0
+  failHint: "KABONE \uB2E8\uACC4 8, 9 \uBAA8\uB450 \uC218\uD589\uB418\uC5B4\uC57C
+    \uD569\uB2C8\uB2E4."
+  theoryRef: REF-KABONE-3-8,9
+  items:
+  - label: "\uC57D\uBB3C \uD22C\uC5EC \uBAA9\uC801 \uC124\uBA85"
+    required: 1
+  - label: "\uC57D\uBB3C \uC791\uC6A9 \uC124\uBA85"
+    required: 1
+  - label: "\uC720\uC758\uC0AC\uD56D \uC124\uBA85"
+    required: 1
+  - label: "\uC758\uBB38\uC0AC\uD56D \uC9C8\uBB38 \uC720\uB3C4"
+    required: 1
+  - label: "\uCEE4\uD2BC(\uC2A4\uD06C\uB9B0)\uC73C\uB85C \uC0AC\uC0DD\uD65C \uBCF4\uD638"
+    required: 1
+--- !u!114 &4194070219187841339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480a96076b7b94c49b499b3a199fa9b2, type: 3}
+  m_Name: SO_Step_12_DisposalRecord
+  m_EditorClassIdentifier: 
+  stepId: STEP_DISPOSAL_RECORD
+  title: "\uD3D0\uAE30 + \uC190\uC704\uC0DD #4 + \uAE30\uB85D"
+  instruction: "\uBC14\uB298\uC740 \uCEA1 \uC5C6\uC774 \uC190\uC0C1\uC131\uD3D0\uAE30\uBB3C
+    \uC804\uC6A9\uC6A9\uAE30, \uC19C\xB7\uC8FC\uC0AC\uAE30\uB294 \uC77C\uBC18 \uC758\uB8CC\uD3D0\uAE30\uBB3C.
+    \uBB3C\xB7\uBE44\uB204 \uC190\uC704\uC0DD. \uAE30\uB85D\uC9C0 \uC791\uC131. (KABONE
+    \uB2E8\uACC4 19-21)"
+  weight: 15
+  feedbackTiming: 1
+  isCriticalGate: 0
+  failHint: "\uC7AC\uCEA1 \uD6C4 \uD3D0\uAE30\uB294 \uAC10\uC810\uC785\uB2C8\uB2E4.
+    5 rights\uB97C \uBAA8\uB450 \uAE30\uB85D\uD558\uC138\uC694."
+  theoryRef: REF-KABONE-3-19,20,21
+  items:
+  - label: "\uBC14\uB298 \uCEA1 \uC5C6\uC774 \uC190\uC0C1\uC131\uD3D0\uAE30\uBB3C
+      \uC804\uC6A9\uC6A9\uAE30 \uD3D0\uAE30"
+    required: 1
+  - label: "\uC19C\xB7\uC8FC\uC0AC\uAE30 \uC77C\uBC18 \uC758\uB8CC\uD3D0\uAE30\uBB3C
+      \uC804\uC6A9\uC6A9\uAE30 \uD3D0\uAE30"
+    required: 1
+  - label: "\uBB3C\xB7\uBE44\uB204 \uC190\uC704\uC0DD (15\uCD08 \uC774\uC0C1)"
+    required: 1
+  - label: "\uAE30\uB85D: \uB300\uC0C1\uC790\uBA85"
+    required: 1
+  - label: "\uAE30\uB85D: \uC57D\uBA85"
+    required: 1
+  - label: "\uAE30\uB85D: \uC6A9\uB7C9"
+    required: 1
+  - label: "\uAE30\uB85D: \uD22C\uC57D\uACBD\uB85C"
+    required: 1
+  - label: "\uAE30\uB85D: \uD22C\uC57D\uC2DC\uAC04"
+    required: 1
+--- !u!114 &5596924182631741661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b1c55a7e69b478986888a0860e1447, type: 3}
+  m_Name: SO_Step_06_PatientIdentify
+  m_EditorClassIdentifier: 
+  stepId: STEP_PATIENT_IDENTIFY
+  title: "\uD658\uC790 \uC2DD\uBCC4"
+  instruction: "\uB300\uC0C1\uC790\uC758 \uC774\uB984\uC744 \uAC1C\uBC29\uD615\uC73C\uB85C
+    \uC9C8\uBB38\uD558\uACE0, \uC785\uC6D0\uD314\uCC0C + \uD22C\uC57D\uCE74\uB4DC\uB97C
+    \uB300\uC870\uD558\uC138\uC694. (KABONE \uB2E8\uACC4 7*)"
+  weight: 12
+  feedbackTiming: 0
+  isCriticalGate: 1
+  failHint: "\uC774\uB984\xB7\uB4F1\uB85D\uBC88\uD638 \uB458 \uB2E4 \uD655\uC778\uD558\uC9C0
+    \uC54A\uC73C\uBA74 \uC2E4\uACA9\uC131 \uAC10\uC810\uC785\uB2C8\uB2E4."
+  theoryRef: REF-KABONE-3-7
+  choices:
+  - text: "\uC131\uD568\uACFC \uC0DD\uB144\uC6D4\uC77C\uC744 \uB9D0\uC500\uD574 \uC8FC\uC2DC\uACA0\uC5B4\uC694?
+      (\uAC1C\uBC29\uD615 \uC9C8\uBB38 + \uD314\uCC0C\xB7\uCE74\uB4DC \uB300\uC870)"
+    isCorrect: 1
+    reasonIfWrong: 6
+  - text: "\uAE40\uCCA0\uC218 \uB2D8 \uB9DE\uC73C\uC2DC\uC8E0? (\uD3D0\uC1C4\uD615
+      \uC9C8\uBB38)"
+    isCorrect: 0
+    reasonIfWrong: 6
+  - text: "(\uB9D0 \uC5C6\uC774 \uD314\uCC0C\uB9CC \uD655\uC778)"
+    isCorrect: 0
+    reasonIfWrong: 7
+  - text: "\uC774\uB984\uB9CC \uD655\uC778\uD558\uACE0 \uB4F1\uB85D\uBC88\uD638 \uB300\uC870\uB294
+      \uC0DD\uB7B5"
+    isCorrect: 0
+    reasonIfWrong: 8
+--- !u!114 &7313931597451739260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 755af2c071c0445e3b6d8e1d9aab100a, type: 3}
+  m_Name: SO_Step_10_InjectionSequence
+  m_EditorClassIdentifier: 
+  stepId: STEP_INJECTION_SEQUENCE
+  title: "\uC8FC\uC0AC \uC2DC\uD000\uC2A4 (\uC790\uC785\xB7\uD761\uC778\xB7\uC8FC\uC785)"
+  instruction: "90\xB0 \uC790\uC785 \u2192 \uD761\uC778 \u2192 \uD608\uC561 \uBD84\uAE30
+    \uCC98\uB9AC \u2192 \uCC9C\uCC9C\uD788 \uC8FC\uC785. (KABONE \uB2E8\uACC4 13*,
+    14*)"
+  weight: 12
+  feedbackTiming: 0
+  isCriticalGate: 1
+  failHint: "\uAC01\uB3C4 90\xB0\xB110\xB0, \uD761\uC778 \uC218\uD589, \uD608\uC561
+    \uBCF4\uC784 \uC2DC \uCC98\uC74C\uBD80\uD130 \uB2E4\uC2DC \u2014 \uBAA8\uB450
+    \uD575\uC2EC\uD56D\uBAA9\uC785\uB2C8\uB2E4."
+  theoryRef: REF-KABONE-3-13,14
+  actions:
+  - kind: 0
+    label: "\uC8FC\uC0AC\uBC14\uB298 90\xB0\uB85C \uC790\uC785"
+    targetAngleDeg: 90
+    angleToleranceDeg: 10
+    minDurationSec: 0.3
+    maxDurationSec: 30
+    reasonIfWrong: 13
+  - kind: 1
+    label: "\uD761\uC778 (\uB0B4\uAD00 \uC0B4\uC9DD \uB4A4\uB85C \uB2F9\uAE30\uAE30)"
+    targetAngleDeg: 90
+    angleToleranceDeg: 10
+    minDurationSec: 1
+    maxDurationSec: 30
+    reasonIfWrong: 14
+  - kind: 2
+    label: "\uC57D\uBB3C \uC8FC\uC785 (\uCC9C\uCC9C\uD788, 1.5\uCD08 \uC774\uC0C1
+      \uC720\uC9C0)"
+    targetAngleDeg: 90
+    angleToleranceDeg: 10
+    minDurationSec: 1.5
+    maxDurationSec: 8
+    reasonIfWrong: 16
+  branchOnBlood: 1
+  bloodProbability: 0
+--- !u!114 &8836646936690012418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2031c878e5ed2454dae34c7b1399ebf9, type: 3}
+  m_Name: SO_Step_03_DrugPrep
+  m_EditorClassIdentifier: 
+  stepId: STEP_DRUG_PREP
+  title: "\uC57D\uBB3C \uC900\uBE44 (Diclofenac 4mg \uC570\uD50C)"
+  instruction: "\uC570\uD50C\uC5D0\uC11C Diclofenac 4mg\uC744 \uC815\uD655\uD55C
+    \uC6A9\uB7C9\uC73C\uB85C \uC8FC\uC0AC\uAE30\uC5D0 \uC900\uBE44\uD558\uC138\uC694.
+    (KABONE \uB2E8\uACC4 3*)"
+  weight: 12
+  feedbackTiming: 0
+  isCriticalGate: 1
+  failHint: "\uB77C\uBCA8\xB7\uC6A9\uB7C9 \uD655\uC778 + \uBB34\uADE0\uC220 + \uACF5\uAE30
+    \uC81C\uAC70\uAC00 \uD544\uC694\uD569\uB2C8\uB2E4."
+  theoryRef: REF-KABONE-3-3
+  kind: 0
+  targetTag: Cabinet
+  thresholds:
+    minPumps: 0
+    minDurationSec: 0
+    items:
+    - label: "Diclofenac 4mg \uC570\uD50C \uB77C\uBCA8 \uD655\uC778"
+      required: 1
+      distractor: 0
+    - label: "\uC815\uD655\uD55C \uC6A9\uB7C9 \uC778\uCD9C"
+      required: 1
+      distractor: 0
+    - label: "\uACF5\uAE30 \uBC29\uC6B8 \uC81C\uAC70"
+      required: 1
+      distractor: 0
+    - label: "\uBB34\uADE0\uC220 \uC720\uC9C0 (\uC570\uD50C \uC785\uAD6C \uC624\uC5FC
+        \uD68C\uD53C)"
+      required: 1
+      distractor: 0

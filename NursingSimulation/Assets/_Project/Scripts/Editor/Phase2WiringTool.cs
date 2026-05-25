@@ -137,7 +137,7 @@ namespace NursingSim.EditorTools
             s.theoryRef = "REF-KABONE-3-1";
             s.kind = InteractionKind.Pour;
             s.targetTag = "HandSanitizerPump";
-            s.thresholds = new ToolInteractionThresholds { minPumps = 2, minDurationSec = 15f };
+            s.thresholds = new ToolInteractionThresholds { minPumps = 2, minDurationSec = 15f, requiresWaterContact = true };
             return s;
         }
 
@@ -606,11 +606,9 @@ namespace NursingSim.EditorTools
         {
             var existing = GameObject.Find("HandSanitizerPump");
             if (existing == null) {
-                existing = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-                existing.name = "HandSanitizerPump";
-                existing.transform.position = new Vector3(-1.6f, 0.8f, 0.4f);
-                existing.transform.localScale = new Vector3(0.12f, 0.2f, 0.12f);
+                existing = AssetCatalogHelper.SpawnRole("HandSanitizerPump", "HandSanitizerPump", PrimitiveType.Cylinder, new Vector3(0.12f, 0.2f, 0.12f));
             }
+            existing.transform.position = new Vector3(2.2f, 1.2f, -1.5f);
             int layer = LayerMask.NameToLayer(InteractableLayerName);
             if (layer >= 0) existing.layer = layer;
             if (existing.GetComponent<PumpInteractable>() == null) existing.AddComponent<PumpInteractable>();
@@ -647,39 +645,117 @@ namespace NursingSim.EditorTools
 
         private static void EnsurePhase0Placeholders()
         {
-            if (GameObject.Find("Floor") == null) {
-                var floor = GameObject.CreatePrimitive(PrimitiveType.Plane);
-                floor.name = "Floor";
-                floor.transform.localScale = new Vector3(2f, 1f, 2f);
-            }
-            if (GameObject.Find("Patient_Placeholder") == null) {
-                var patient = new GameObject("Patient_Placeholder");
-                patient.transform.position = new Vector3(0f, 0.5f, 0f);
-                var body = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-                body.name = "Body";
+            EnsureRoomShell();
+
+            var patient = GameObject.Find("Patient_Placeholder");
+            if (patient == null) {
+                patient = new GameObject("Patient_Placeholder");
+                var body = AssetCatalogHelper.SpawnRole("PatientBody", "Body", PrimitiveType.Capsule, Vector3.one);
                 body.transform.SetParent(patient.transform, false);
             }
-            if (GameObject.Find("Tray_Placeholder") == null) {
-                var tray = new GameObject("Tray_Placeholder");
-                tray.transform.position = new Vector3(1.5f, 0.8f, 0f);
-                var top = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                top.name = "TrayTop";
-                top.transform.SetParent(tray.transform, false);
-                top.transform.localScale = new Vector3(0.6f, 0.05f, 0.4f);
+            patient.transform.position = new Vector3(0f, 0.6f, 0f); // on bed top
+
+            var bed = GameObject.Find("Bed_Placeholder");
+            if (bed == null) {
+                // Legacy: older versions made a top-level "Bed"; remove to avoid name collision with Room/E1_Parts children.
+                var oldBed = GameObject.Find("Bed");
+                if (oldBed != null && oldBed.transform.parent == null) Object.DestroyImmediate(oldBed);
+                bed = AssetCatalogHelper.SpawnRole("Bed", "Bed_Placeholder", PrimitiveType.Cube, new Vector3(1f, 0.5f, 2.1f));
             }
-            if (GameObject.Find("Cabinet_Placeholder") == null) {
-                var cab = new GameObject("Cabinet_Placeholder");
-                cab.transform.position = new Vector3(-2f, 1f, 0f);
-                var body = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                body.name = "Body";
+            bed.transform.position = new Vector3(0f, 0.3f, 0f); // center of room
+
+            var trayRoot = GameObject.Find("Tray_Placeholder");
+            if (trayRoot == null) {
+                trayRoot = new GameObject("Tray_Placeholder");
+                var top = AssetCatalogHelper.SpawnRole("Tray", "TrayTop", PrimitiveType.Cube, new Vector3(0.6f, 0.05f, 0.4f));
+                top.transform.SetParent(trayRoot.transform, false);
+            }
+            trayRoot.transform.position = new Vector3(1.5f, 0.85f, 1.0f); // beside bed, head side
+            EnsureTrayChild(trayRoot.transform, "Syringe",     "Syringe3cc",  PrimitiveType.Cylinder, new Vector3(0.012f, 0.06f, 0.012f), new Vector3(0f,     0.05f,  0f));
+            EnsureTrayChild(trayRoot.transform, "Ampoule",     "Ampoule",     PrimitiveType.Capsule,  new Vector3(0.012f, 0.025f, 0.012f), new Vector3(0.12f,  0.05f, -0.12f));
+            EnsureTrayChild(trayRoot.transform, "AlcoholSwab", "AlcoholSwab", PrimitiveType.Cube,     new Vector3(0.06f,  0.005f, 0.06f),  new Vector3(-0.18f, 0.05f,  0.10f));
+            EnsureTrayChild(trayRoot.transform, "Gauze",       "Gauze",       PrimitiveType.Cube,     new Vector3(0.05f,  0.002f, 0.05f),  new Vector3(0.18f,  0.05f,  0.10f));
+
+            var cab = GameObject.Find("Cabinet_Placeholder");
+            if (cab == null) {
+                cab = new GameObject("Cabinet_Placeholder");
+                var body = AssetCatalogHelper.SpawnRole("Cabinet", "Body", PrimitiveType.Cube, new Vector3(0.5f, 2f, 0.4f));
                 body.transform.SetParent(cab.transform, false);
-                body.transform.localScale = new Vector3(0.5f, 2f, 0.4f);
             }
+            cab.transform.position = new Vector3(-2.0f, 1.0f, 1.5f); // against west wall
+
+            var sharps = GameObject.Find("SharpsContainer");
+            if (sharps == null) {
+                sharps = AssetCatalogHelper.SpawnRole("SharpsContainer", "SharpsContainer", PrimitiveType.Cube, new Vector3(0.15f, 0.2f, 0.15f));
+            }
+            sharps.transform.position = new Vector3(1.8f, 0.3f, 0f); // beside tray on floor
+
             var mainCam = GameObject.Find("Main Camera");
             if (mainCam != null && mainCam.transform.position == Vector3.zero) {
                 mainCam.transform.position = new Vector3(0f, 1.6f, -3f);
                 mainCam.transform.rotation = Quaternion.Euler(10f, 0f, 0f);
             }
+        }
+
+        private static readonly System.Collections.Generic.HashSet<string> ShellPartNames =
+            new System.Collections.Generic.HashSet<string> { "Floor", "Wall_N", "Wall_S", "Wall_E", "Wall_W", "Door", "Ceiling" };
+
+        private static void EnsureRoomShell()
+        {
+            // Remove obsolete top-level Floor leftover from earlier versions (avoids name collision with Room/Floor).
+            var stray = GameObject.Find("Floor");
+            if (stray != null && (stray.transform.parent == null || stray.transform.parent.name != "Room")) {
+                Object.DestroyImmediate(stray);
+            }
+
+            var room = GameObject.Find("Room");
+            if (room == null) {
+                room = new GameObject("Room");
+                room.transform.position = Vector3.zero;
+                room.transform.rotation = Quaternion.identity;
+                room.transform.localScale = Vector3.one;
+            } else {
+                // If Room contains E1_Parts (user ran Phase 2 > 5 RoomBuilder), skip primitive shell entirely.
+                foreach (Transform t in room.transform) {
+                    if (!ShellPartNames.Contains(t.name)) {
+                        Debug.Log("[Phase2 Shell] Room contains non-shell content (E1_Parts) → primitive shell skipped.");
+                        return;
+                    }
+                }
+                // Reset Room transform in case earlier RoomBuilder left non-identity values.
+                room.transform.position = Vector3.zero;
+                room.transform.rotation = Quaternion.identity;
+                room.transform.localScale = Vector3.one;
+            }
+
+            EnsureRoomPart(room.transform, "Floor",   "Floor",   PrimitiveType.Plane, new Vector3(0.7f, 1f, 0.7f), new Vector3(0f,    0f,     0f));
+            EnsureRoomPart(room.transform, "Wall_N",  "Wall_N",  PrimitiveType.Cube,  new Vector3(7f,   3f, 0.1f), new Vector3(0f,    1.5f,   3.5f));
+            EnsureRoomPart(room.transform, "Wall_S",  "Wall_S",  PrimitiveType.Cube,  new Vector3(7f,   3f, 0.1f), new Vector3(0f,    1.5f,  -3.5f));
+            EnsureRoomPart(room.transform, "Wall_E",  "Wall_E",  PrimitiveType.Cube,  new Vector3(0.1f, 3f, 7f),   new Vector3(3.5f,  1.5f,   0f));
+            EnsureRoomPart(room.transform, "Wall_W",  "Wall_W",  PrimitiveType.Cube,  new Vector3(0.1f, 3f, 7f),   new Vector3(-3.5f, 1.5f,   0f));
+            EnsureRoomPart(room.transform, "Door",    "Door",    PrimitiveType.Cube,  new Vector3(1f,   2.4f, 0.06f), new Vector3(0f,  1.2f,  -3.45f));
+            EnsureRoomPart(room.transform, "Ceiling", "Ceiling", PrimitiveType.Plane, new Vector3(0.7f, 1f, 0.7f), new Vector3(0f,    3f,     0f));
+        }
+
+        private static void EnsureRoomPart(Transform room, string name, string role, PrimitiveType fallback, Vector3 fallbackScale, Vector3 worldPos)
+        {
+            var existing = room.Find(name);
+            GameObject go;
+            if (existing == null) {
+                go = AssetCatalogHelper.SpawnRole(role, name, fallback, fallbackScale);
+                go.transform.SetParent(room, false);
+            } else {
+                go = existing.gameObject;
+            }
+            go.transform.position = worldPos;
+        }
+
+        private static void EnsureTrayChild(Transform tray, string childName, string role, PrimitiveType fallback, Vector3 fallbackScale, Vector3 localPos)
+        {
+            if (tray.Find(childName) != null) return;
+            var child = AssetCatalogHelper.SpawnRole(role, childName, fallback, fallbackScale);
+            child.transform.SetParent(tray, false);
+            child.transform.localPosition = localPos;
         }
 
         private static Canvas EnsureCanvas(string name)

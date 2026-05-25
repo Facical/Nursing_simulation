@@ -55,6 +55,16 @@ namespace NursingSim.Core.Runner
             }
         }
 
+        public IReadOnlyList<PlayHistoryEntry> GetRecentPlays(int maxCount)
+        {
+            if (maxCount <= 0) return new List<PlayHistoryEntry>();
+            var file = LoadOrInit();
+            int start = Math.Max(0, file.plays.Count - maxCount);
+            var slice = file.plays.GetRange(start, file.plays.Count - start);
+            slice.Reverse();
+            return slice;
+        }
+
         public PlayHistoryFile LoadOrInit()
         {
             try {

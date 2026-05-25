@@ -51,7 +51,7 @@ namespace NursingSim.UI
             var elapsed = Time.time - startTime;
             int m = Mathf.FloorToInt(elapsed / 60f);
             int s = Mathf.FloorToInt(elapsed % 60f);
-            timerLabel.text = $"⏱ {m:00}:{s:00}";
+            timerLabel.text = $"{m:00}:{s:00}";
         }
 
         private void OnStepStarted(ScenarioStep step)
