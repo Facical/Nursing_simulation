@@ -13,6 +13,16 @@
 | 3. UX·오디오·디브리핑 | 2주 | Briefing/Debriefing 씬, SFX, 폴리싱 |
 | 4. QA·빌드 | 1~2주 | 자체 점검 통과, Win/Mac 빌드, 스모크 테스트 |
 
+## 2026-05-25 방향 조정
+
+기존 세밀한 3D 손 조작은 학습 몰입에는 도움이 되지만, 실제 간호대 학부생의 기본 예습/복습 경로로는 조작 난도가 높다. 따라서 MVP의 기본 경로는 **Basic Simulation Mode**로 고정하고, 기존 손 조작은 Settings에서 켜는 **Hard Hand Simulator Mode**로 분리한다.
+
+- MainMenu에서 시작하면 기본적으로 Basic Simulation Mode로 진행한다.
+- Settings에 `Hard Hand Simulator` ON/OFF 토글을 둔다. 기본값은 OFF다.
+- Basic 모드에서는 UI 카드/버튼 선택이 손 모델 애니메이션과 3D 환경 반응을 트리거한다.
+- Hard Hand 모드는 `ASDF/Space`, `Z/X/C/V/B`, 마우스 그랩/회전 기반 세밀 조작을 유지하되 MVP 완료의 필수 경로로 보지 않는다.
+- Step 1 처방 확인은 처방 카드, 환자 카드, 투약원칙 카드 중심으로 먼저 정리한다.
+
 ## Phase 0 — 프로젝트 셋업 (Week 1)
 
 ### 작업
@@ -84,6 +94,12 @@
 ## Phase 3 — UX·오디오·디브리핑 (Week 9~10)
 
 ### 작업
+- [ ] MainMenu 기본 시작 흐름을 Basic Simulation Mode로 고정
+- [ ] Settings에 Hard Hand Simulator ON/OFF 토글 추가 (기본 OFF)
+- [ ] Step 1 처방 확인 카드 제작: 처방 카드, 환자 카드, 투약원칙 카드, 확인 완료 버튼
+- [ ] Basic Simulation Mode 액션 계층 구현: UI 버튼 → 손 애니메이션 → step controller 이벤트
+- [ ] Basic 모드 기준으로 나머지 13개 시뮬레이션 단계 진행 가능하게 정리
+- [ ] Hard Hand Simulator는 선택형 고급 모드로 유지하고 Basic 경로를 막지 않게 정리
 - [ ] MainMenu / Briefing / Debriefing 씬 완성
 - [ ] Cinemachine 카메라 블렌드 (상호작용 줌)
 - [ ] 포스트 프로세싱 (컬러 그레이딩 · Bloom · DoF)
@@ -93,7 +109,9 @@
 - [ ] 설정 창, 일시정지 메뉴 (ESC)
 
 ### DoD
-- 전체 플로우 MainMenu → Debriefing 30분 내 완주
+- Basic Simulation Mode에서 전체 플로우 MainMenu → Debriefing 30분 내 완주
+- Hard Hand Simulator OFF 상태에서 `ASDF/Space`, `Z/X/C/V/B` 조작을 몰라도 진행 가능
+- Hard Hand Simulator ON 상태에서 기존 손 조작 overlay와 입력이 활성화됨
 - 자막/사운드 토글 동작
 - 디브리핑이 단계별 결과와 학습 포인트 모두 출력
 
@@ -105,13 +123,13 @@
 - [ ] 버그 리스트 소진
 - [ ] Windows x64 IL2CPP 빌드, macOS Universal 빌드
 - [ ] 공증(optional) / 배포 압축
-- [ ] 학생 3~5명 베타 테스트
+- [ ] 학생 3~5명 베타 테스트 (Basic Simulation Mode 기준)
 - [ ] v0.1.0 태그
 
 ### DoD
 - `docs/02 §6` 자체 점검 9개 항목 모두 통과
 - Win/Mac 빌드가 타깃 사양에서 60fps 유지
-- 베타 테스터 평균 완주율 ≥ 80%
+- Basic Simulation Mode 베타 테스터 평균 완주율 ≥ 80%
 
 > **참고**: 감수자(간호학 교수/임상 간호사) 검증 단계는 본 프로젝트에서 운영하지 않는다 (사용자 결정, 2026-05-06). 의학적 그라운딩은 KABONE 공식 PDF 직접 인용으로 마감 ([docs/09-references.md](./09-references.md)).
 
@@ -128,14 +146,14 @@ W7   ████████
 W8   ████████
 W9   ██████ UX·오디오·디브리핑
 W10  ██████
-W11  ████ 감수·QA·빌드
+W11  ████ QA·빌드
 W12  ████
 ```
 
 ## 이후 로드맵 (MVP 검증 후)
 
 - 시나리오 확장: 활력징후 측정, 수혈, 유치도뇨, 경관영양 등
-- 시나리오 에디터 (감수자 직접 편집)
+- 강사용/개발자용 시나리오 에디터
 - 학생 성적 집계 (학교 LMS 연동 — 요건 확인 필요)
 - VR(Meta Quest) 모드 — 핵심 상호작용 재사용
 - 다국어(영어) — Localization Package 활성화

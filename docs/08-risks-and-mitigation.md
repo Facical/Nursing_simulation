@@ -4,7 +4,7 @@
 |---|---|:---:|:---:|---|
 | R1 | 캐릭터 에셋 조달 비용·시간 초과 | **저** | 중 | **Microsoft Rocketbox(MIT)** 채택으로 해소 — 의료 직군 8종·환자 후보 다수를 무료 확보. 아트 방향이 Semi-realistic + 도구만 포토리얼로 고정되어 추가 캐릭터 투자 불필요. |
 | R2 | 의학적 정확성 부족 | 저 | 상 | **KABONE 핵심기본간호술 평가항목 프로토콜 제4.1판 공식 PDF 직접 인용으로 그라운딩 완료** ([docs/09-references.md](./09-references.md), [docs/02-functional-spec.md](./02-functional-spec.md)). 모든 절차 행이 KABONE 단계 ID(예: `[REF-KABONE-3-10]`)로 인용 가능. 잔여 리스크: KABONE 4.1판 이후 신판이 출시된 경우 갭 발생 — 사용자가 추후 신판 사본 확보 시 갱신 필요. **본 프로젝트는 감수자 검증 단계를 두지 않는다** (사용자 결정, 2026-05-06). |
-| R3 | 3D 직접조작 UX 복잡도 | 중 | 중 | Phase 1 종료 시 2~3단계만으로 3명 플레이테스트. 조작 어렵다면 hybrid(핵심은 drag, 보조는 click)로 축소. |
+| R3 | 3D 직접조작 UX 복잡도 | 중 | 중 | 2026-05-25 방향 조정으로 기본 경로를 Basic Simulation Mode(UI 선택 + 손 애니메이션)로 고정하고, 세밀 손 조작은 Settings의 Hard Hand Simulator 선택 모드로 분리. |
 | R4 | 빌드 크기/성능 저하 (의료 도구 포토리얼 텍스처 + Rocketbox 다수 임포트) | 저 | 중 | URP 기본 설정, 의료 도구 2K·인물/환경 1K 표준, 배경 Baked Light, Addressables는 Phase 3 말에 도입 판단. Rocketbox는 사용 아바타만 선별 임포트. |
 | R5 | 중급 Unity 실력 vs 포토리얼 간극 | **저** | 중 | 아트 방향을 Semi-realistic + 도구만 포토리얼로 확정. Rocketbox + URP 기본 조명으로 Phase 2 진행. 룩 개발 부담은 "의료 도구 6종"에 국한. |
 | R6 | 일정 초과 (1인 15~20h/주 가정) | 중 | 중 | 주차별 DoD로 관리. 주 3회 커밋 + 주말 회고. 지연 시 시나리오 단계 축소 대신 **시각 폴리싱을 줄이기** 우선. |
@@ -22,7 +22,7 @@
 | Phase 1 종료 시 1단계도 플레이 불가 | 스코프 절반 축소 (KABONE 21단계 → 핵심항목 6개 위주 7단계로 축약) |
 | docs/02 자체 점검 체크리스트(§6) 항목 중 미준수 발견 | Phase 2 중단하고 `02-functional-spec.md` + `docs/09-references.md` 수정 우선 |
 | Phase 2 말에 60fps 미달 | URP settings, 텍스처 해상도 일괄 다운, 라이트 Bake |
-| 베타 테스터 완주율 < 60% | 조작 튜토리얼 추가, 단계 힌트 기본 활성화 |
+| Basic Simulation Mode 베타 테스터 완주율 < 60% | Step 카드 문구와 액션 수를 줄이고, 단계 힌트를 기본 활성화한다. Hard Hand Simulator는 계속 OFF 기본값 유지 |
 
 ## 의학적·법적 주의
 

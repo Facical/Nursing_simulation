@@ -42,6 +42,7 @@
 ┌───────────┴─────────────────────┴───────────────────┐
 │                   Runtime                           │
 │  ScenarioRunner (FSM)  InteractionManager           │
+│  SimulationModeSettings  HandActionEvents           │
 │  FeedbackBus (Event Ch) ScoreTracker                │
 │  DebriefingBuilder  SaveService (JSON)              │
 └───────────▲─────────────────────▲───────────────────┘
@@ -65,6 +66,13 @@
 - 하이라이트: URP `Renderer Feature`의 Outline 셰이더 또는 `QuickOutline` 에셋.
 - 드래그: 첫 클릭 지점에서 카메라 평면 투영, 매 프레임 위치 업데이트, 릴리즈 시 단계 검증 이벤트.
 
+### 3.2.1 시뮬레이션 모드
+
+- `BasicSimulation`이 기본값이다. UI 카드/버튼이 의미 단위 이벤트를 발행하고, 손 모델은 애니메이션으로 결과를 보여준다.
+- `HardHandSimulator`는 Settings에서 사용자가 켤 때만 활성화한다. 기존 키보드·마우스 손 조작 입력을 `HandActionEvents`로 변환한다.
+- step controller는 가능하면 원시 입력을 직접 읽지 않고 `FeedbackBus` 또는 `HandActionEvents` 같은 의미 단위 이벤트를 구독한다.
+- 두 모드는 같은 KABONE 절차·채점 기준을 사용한다. Hard Hand 모드 전용 임상 규칙은 추가하지 않는다.
+
 ### 3.3 이벤트 채널 (FeedbackBus)
 - `ScriptableObject` 기반 이벤트 채널 패턴 (Unity Open Project 방식).
 - 이벤트 타입: `StepStarted`, `StepProgress(float 0..1)`, `StepCompleted(StepResult)`, `InstantFeedback(FeedbackKind, string msg)`, `ScoreChanged(int)`, `ScenarioCompleted(DebriefingReport)`.
@@ -73,7 +81,7 @@
 ### 3.4 저장 (SaveService)
 - `Application.persistentDataPath/playhistory.json`에 직렬화.
 - 스키마: `{ version, plays: [{ scenarioId, startedAt, endedAt, totalScore, stepResults[] }] }`
-- PlayerPrefs는 설정 값(볼륨·자막)만.
+- PlayerPrefs는 설정 값(볼륨·자막·폰트 크기·시뮬레이션 모드)만.
 
 ### 3.5 폰트
 - 본문: 나눔고딕/프리텐다드(OFL) — SDF Atlas 사전 생성 권장 (KS X 1001 2,350자 + 자주 쓰는 한자/기호).
